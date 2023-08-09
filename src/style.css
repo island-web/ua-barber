@@ -1,0 +1,605 @@
+@import 'https://fonts.googleapis.com/css?family=Inconsolata';
+
+html {
+  min-height: 100%;
+}
+
+
+body {
+  box-sizing: border-box;
+  height: 100%;
+  background-color: #000000;
+  background-image: radial-gradient(#11581E, #041607), url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Inconsolata", Helvetica, sans-serif;
+  font-size: 1.5rem;
+  color: rgba(128, 255, 128, 0.8);
+  text-shadow: 0 0 1ex #33ff33, 0 0 2px rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.noise {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+  opacity: 0.02;
+}
+
+.overlay {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
+  background-size: auto 4px;
+  z-index: 1;
+}
+
+.overlay::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(0deg, transparent 0%, rgba(32, 128, 32, 0.2) 2%, rgba(32, 128, 32, 0.8) 3%, rgba(32, 128, 32, 0.2) 3%, transparent 100%);
+  background-repeat: no-repeat;
+  -webkit-animation: scan 7.5s linear 0s infinite;
+  animation: scan 7.5s linear 0s infinite;
+}
+
+@-webkit-keyframes scan {
+  0% {
+    background-position: 0 -100vh;
+  }
+
+  35%,
+  100% {
+    background-position: 0 100vh;
+  }
+}
+
+@keyframes scan {
+  0% {
+    background-position: 0 -100vh;
+  }
+
+  35%,
+  100% {
+    background-position: 0 100vh;
+  }
+}
+
+.terminal {
+  box-sizing: inherit;
+  position: absolute;
+  height: 100%;
+  width: 1000px;
+  max-width: 100%;
+  padding: 2rem;
+  text-transform: uppercase;
+}
+
+.output {
+  color: rgba(128, 255, 128, 0.8);
+  text-shadow: 0 0 1px rgba(51, 255, 51, 0.4), 0 0 2px rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: monospace, Consolas;
+
+}
+
+.output-activ {
+  color: rgba(128, 255, 128, 0.8);
+  text-shadow: 0 0 1px rgba(51, 255, 51, 0.4), 0 0 2px rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-family: monospace, Consolas;
+
+}
+
+.client_input {
+  display: none;
+  transition: display 0.9s ease;
+  font-family: monospace, Consolas;
+}
+
+.info-service {
+  display: none;
+  transition: display 0.9s ease;
+  font-family: monospace, Consolas;
+
+  /* Плавный переход для свойства display, длительность 0.5 секунды и тип easing 'ease' */
+}
+
+.list-order {
+  margin: 0;
+  padding-top: 10px;
+}
+
+.order-data {
+  display: none;
+  transition: display 0.9s ease;
+  font-family: monospace, Consolas;
+}
+
+.order-btn-edit {
+  font-size: 1rem;
+  margin-top: 10%;
+}
+
+
+.order-btn-edit-dell {
+  font-size: 1rem;
+  margin-top: 10%;
+}
+
+.order-btn-edit-dell::before {
+  content: "[ ";
+  color: #ff0000;
+}
+
+.order-btn-edit-dell::after {
+  content: " ]";
+  color: #ff0000;
+}
+
+.order-btn-edit::before {
+  content: "[ ";
+  color: #37ff00;
+}
+
+.order-btn-edit::after {
+  content: " ]";
+  color: #37ff00;
+}
+
+.active {
+  display: block;
+  transition: display 0.9s ease;
+  font-family: monospace, Consolas;
+
+}
+
+
+.services {
+  font-size: 1rem;
+  font-family: monospace, Consolas;
+}
+
+.list-service-opt,  .list-order-opt {
+  color: rgba(192, 255, 192, 0.8);
+  text-shadow: 0 0 1px rgba(51, 255, 51, 0.4), 0 0 2px rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
+  font-family: monospace, Consolas;
+  text-transform: inherit;
+  text-align: left;
+}
+
+.order {
+  margin: 0;
+}
+
+.list-service-opt, .list-order-opt::before {
+  content: "- ";
+}
+
+.list-service-opt, .list-order-opt::after {
+  content: ";";
+}
+
+
+.input {
+  color: rgba(128, 255, 128, 0.8);
+  text-shadow: 0 0 1ex #33ff33, 0 0 2px rgba(255, 255, 255, 0.8);
+  background: #33ff3300;
+  text-align: -webkit-center;
+  font-size: smaller;
+  font-family: monospace, Consolas;
+  border-style: ridge;
+  border-color: #00ff0063;
+  box-shadow: inset 0 0 1ex rgba(0, 255, 0, 0.4), 0 0 0.5ex rgba(0, 255, 0, 0.4);
+}
+
+.input:focus {
+  outline: none;
+  border-style: hidden;
+  border-color: #00ff0063;
+  box-shadow: inset 0px 0px 0.5ex 0px #00ff00, 0 0 1ex 5px #00ff00;
+  transform: translateZ(0);
+  color: rgba(32, 128, 32, 0.8);
+  text-shadow: -2px -2px 2ex #041607, -1px -1px 2px rgb(0 0 0);
+  background: #33ff33;
+  font-family: monospace, Consolas;
+}
+
+.lenght-input::before {
+  content: "$ ";
+}
+
+.description-input {
+  height: 20vh;
+}
+
+.terminal-input {
+  width: 100%;
+  height: 5vh;
+  padding: 0px;
+  border-radius: 0px;
+  position: relative;
+  display: inline-block;
+  font-size: small;
+  font-family: "Inconsolata", Helvetica, sans-serif;
+  background: #0f00;
+  box-shadow: inset 0px 0px 0.5ex 0px #00ff00, 0 0 1ex 0px #00ff00;
+
+}
+
+input[type="date"] {
+  text-align-last: center;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 5px;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: none;
+  color: rgb(255 255 255 / 80%);
+  text-shadow: -2px -2px 2ex #00ff2b, -1px -1px 2px #00ff00;
+  font-family: monospace, Consolas;
+  font-size: 1rem;
+}
+
+label {
+  font-size: 0.9rem;
+  font-family: monospace, Consolas;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  color: #00ff00;
+}
+
+input[type="date"]:active {
+  outline: none;
+  border: none;
+}
+
+input[type="date"]:focus {
+  outline: none;
+  border: none;
+}
+
+#service-order-input {
+  text-align-last: center;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 5px;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: none;
+  color: rgb(255 255 255 / 80%);
+  text-shadow: -2px -2px 2ex #00ff2b, -1px -1px 2px #00ff00;
+  font-family: monospace, Consolas;
+  font-size: 1rem;
+}
+
+#master-order-input {
+  text-align-last: center;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 5px;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: none;
+  color: rgb(255 255 255 / 80%);
+  text-shadow: -2px -2px 2ex #00ff2b, -1px -1px 2px #00ff00;
+  font-family: monospace, Consolas;
+  font-size: 1rem;
+}
+
+
+option {
+  color: #00ff00;
+  text-shadow: -2px -2px 2ex #00ff2b, -1px -1px 2px #00ff00;
+  font-family: monospace, Consolas;
+  font-size: 1rem;
+  text-align-last: center;
+  background: black;
+    color: lime;
+}
+
+
+.data-clients {
+  width: 90%;
+}
+
+.history-client {
+  height: 20vh;
+}
+
+/* Стили для десктопной версии (большие экраны) */
+.row {
+  display: flex;
+}
+
+.col-sm-4,
+.col-sm-3 {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.col-sm-6 {
+  width: 45%;
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 575px) {
+  .row {
+    margin-bottom: 20px;
+    /* Добавляем отступ снизу */
+    flex-wrap: wrap;
+    /* При уменьшении экрана, переносим элементы на новую строку */
+  }
+
+  .col-sm-4, .col-sm-3 {
+    flex: 33%;
+    /* При уменьшении экрана, занимаем всю ширину экрана */
+    margin-right: 0;
+    /* Убираем отступ между элементами */
+    margin-bottom: 10px;
+    /* Добавляем отступ снизу, чтобы создать разделение между элементами */
+  }
+
+  .input {
+    font-size: 1rem;
+    font-family: monospace, Consolas;
+    box-shadow: inset 0 0 1ex rgba(0, 255, 0, 0.4), 0 0 0.5ex rgba(0, 255, 0, 0.4);
+  }
+
+  #edit-order-menu {
+    margin-right: 10%;
+  }
+
+  .list-order{
+    padding-top: 10px;
+  }
+
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.5s ease;
+  font-size: 1rem;
+  font-family: monospace, Consolas;
+
+}
+
+a::before {
+  content: "[ ";
+}
+
+a::after {
+  content: " ]";
+}
+
+.errorcode {
+  color: white;
+}
+
+
+
+hr {
+  box-shadow: inset 5px 5px 5ex rgb(0 255 0), 0 0 0.5ex rgb(0 255 0);
+  color: #11581e;
+  width: 30%;
+}
+
+#fa-back {
+  color: #37ff00;
+  display: none;
+  font-size: 1.5rem;
+  text-align: left;
+  margin-left: 5%;
+}
+
+#fa-check, #fa-check-clients_edit {
+  color: #37ff00;
+  display: none;
+  font-size: 1.5rem;
+  text-align: right;
+  margin-right: 20%;
+}
+
+#fa-search {
+  color: #37ff00;
+  display: none;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-right: 1%;
+}
+
+#fa-add-service, #fa-add-client {
+  color: #37ff00;
+  display: none;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-right: 1%;
+  margin-bottom: 5px;
+}
+
+#fa-add-order {
+  color: #37ff00;
+  display: none;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-right: 1%;
+  margin-bottom: 5px;
+}
+
+.down-nav {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  padding-left: 10px;
+}
+
+#body-info {
+  position: relative;
+  display: none;
+  text-align: center;
+  font-family: monospace, Consolas;
+  overflow: auto;
+  height: 60vh;
+  overflow-x: hidden;
+  margin-top: 10%;
+}
+
+
+
+li {
+  list-style-type: none;
+}
+
+
+/* прогресс бар */
+.progress-bar {
+  position: initial;
+  margin-top: 3%;
+  margin-bottom: 10px;
+  bottom: 0px;
+  left: 0;
+  width: 90%;
+  margin-left: 5%;
+  height: 5px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  box-shadow: inset 0px 0 5ex rgb(255 255 255), -1px 0 5px 0px rgb(255 255 255 / 80%);
+  display: none;
+}
+
+.progress {
+  height: 100%;
+  background-color: #37ff00;
+  /* Цвет заливки прогресс-бара (зеленый) */
+  border-radius: 2px;
+  /* Закругление углов заливки прогресс-бара */
+  width: 0;
+  /* Изначально прогресс-бар будет пустым */
+}
+
+
+
+
+/* Alert style */
+.custom-alert, .custom-alert-client {
+  display: none;
+  position: fixed;
+  width: 75%;
+  height: 55vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #00000040;
+  box-shadow: inset 0px 0 1.5ex #00ff00, 0px 0 5px 0px #00ff00;
+  padding: 20px;
+  z-index: 9999;
+}
+
+.custom-alert-content {
+  text-align: center;
+  height: 90%;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#fa-close-alert {
+  color: #ff0800;
+  font-size: 1.5rem;
+  text-align: right;
+  margin-right: 1%;
+}
+
+#fa-save-alert {
+  color: #37ff00;
+  font-size: 1.5rem;
+  text-align: right;
+  margin-right: 1%;
+}
+
+#warning {
+  display: none;
+  position: fixed;
+  width: 75%;
+  height: 55vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #000000a6;
+  box-shadow: inset 0px 0 1ex #ff0800, 0px 0 1px 0px #ff0000c2;  padding: 5px;
+  z-index: 9999;
+}
+
+#header-warning {
+  text-align: center;
+    font-size: 1.5rem;
+    font-family: monospace, Consolas;
+    color: #ff0800;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px #ff0800, 0 0 5px #ff0800;
+
+}
+
+.warning-head-2 {
+  text-align: center;
+    font-size: 1rem;
+    font-family: system-ui;
+    color: #ff0800;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px #ff0800, 0 0 5px #ff0800;
+}
+
+.warning-opt {
+  text-align: left;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.warning-row-confirm {
+  margin-left: 10%;
+  margin-bottom: 0px;
+  margin-top: 50%;
+  flex-wrap: wrap;
+}
+
+#add-order {
+  display: none;
+  position: fixed;
+  width: 75%;
+  height: 55vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  box-shadow: none;
+  
+  z-index: 9999;
+
+}
+/* Alert style */

@@ -1,1 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./drag_20/img/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="./drag_20/img/favicon.png">
+  <title>UA-BARBER</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
+
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <div class="noise"></div>
+  <div class="overlay"></div>
+
+
+  <div class="terminal">
+    
+    <h1>Drag <span class="errorcode">20</span></h1>
+    <i class="fa-solid fa-plus fa-beat-fade" id="fa-add-service" onclick="addService()"></i>
+    <i class="fa-solid fa-plus fa-beat-fade" id="fa-add-client" onclick="addClient()"></i>
+    <i class="fa-solid fa-plus fa-beat-fade" id="fa-add-order" onclick="addOrder()"></i>
+
+
+    <div id="li_start">
+      <p class="output bar" id="btn_clients" onclick="rout(this.id)"></p>
+      <p class="output bar" id="btn_orders" onclick="rout(this.id)"></p>
+      <p class="output bar" id="btn_edit_orders" onclick="rout(this.id)"></p>
+      <p class="output bar" id="btn_serv" onclick="rout(this.id)"></p>
+      <p class="output bar" id="btn_serv_edit" onclick="rout(this.id)"></p>
+
+    </div>
+    <div id="body-info"></div>
+
+    <div class="progress-bar">
+      <div class="progress"></div>
+    </div>
+  
+  </div>
+
+  <div class="row down-nav">
+    <div class="col-sm-4" id="back">
+        <i class="fa-solid fa-chevron-left fa-beat-fade" id="fa-back" onclick="back()"></i>
+    </div>
+    <div class="col-sm-4" id="center_footer">
+      <i class="fa-solid fa-magnifying-glass fa-beat-fade" id="fa-search" onclick="search()"></i>
+    </div>
+    <div class="col-sm-4">
+      <i class="fa-solid fa-check fa-beat-fade" id="fa-check" onclick="check('edit_services')"></i>
+      <i class="fa-solid fa-check fa-beat-fade" id="fa-check-clients_edit" onclick="check('edit_clients')"></i>
+    </div>
+  </div>
+
+ 
+<!-- alert add service-->
+
+<div id="custom-alert" class="custom-alert">
+  <div class="custom-alert-content">
+    <p>new service:</p>
+    <div class="row row-create-service" id="${services[item].id}">
+      <div class="col-sm-3">
+        <input class="input name_input" name="name_service" value="" placeholder="назва" required/>
+      </div>
+      <div class="col-sm-3">
+        <input class="input price-input"  name="price" value="" placeholder="вартість" required/>
+      </div>
+      <div class="col-sm-3">
+        <input class="input lenght-input" name="length_" value="" placeholder="тривалість" required/>
+      </div>
+      <div class="col-sm-3">
+        <input class="input description-input" name="description" value="" placeholder="опис" />
+      </div>
+    </div>  
+
+    <span>
+
+      <i class="fa-solid fa-xmark fa-beat-fade" id="fa-close-alert" onclick="closeCustomAlert()"></i>
+      <i class="fa-solid fa-check fa-beat-fade" id="fa-save-alert" onclick="saveCustomAlert()"></i>
+
+    </span>
+  </div>
+</div>
+<!-- alert-->
+
+<!-- alert add client-->
+
+<div id="custom-alert-add-client" class="custom-alert">
+  <div class="custom-alert-content">
+    <p>new client:</p>
+    <div class="row row-create-client">
+      <div class="col-sm-3">
+        <input class="input name_input" name="name_client" value="" placeholder="ім'я:" required/>
+      </div>
+      <div class="col-sm-3">
+        <input class="input price-input"  name="phone_client" value="" placeholder="тел:" required/>
+      </div>
+      <div class="col-sm-3">
+        <input class="input lenght-input" name="about_client" value="" placeholder="хто це:" required/>
+      </div>
+    </div>  
+
+    <span>
+
+      <i class="fa-solid fa-xmark fa-beat-fade" id="fa-close-alert" onclick="closeCustomAlert('fa-add-client', 'custom-alert-add-client')"></i>
+      <i class="fa-solid fa-check fa-beat-fade" id="fa-save-alert" onclick="saveCustomAlertAddCl()"></i>
+
+    </span>
+  </div>
+</div>
+<!-- alert-->
+
+<!-- alert warning-->
+<div id="warning" class="custom-alert">
+  <div class="custom-alert-content">
+    <h1 id="header-warning">warning !!!</h1>
+    <p class="warning-head-2" id="header-warning-2"></p>
+    <p class="warning-opt" id="option-warning-1"></p>
+    <p class="warning-opt" id="option-warning-2"></p>
+    <p class="warning-opt" id="option-warning-3"></p>
+    <div class="row warning-row-confirm">
+      <div class="col-sm-6">
+        <i class="fa-solid fa-xmark fa-beat-fade" id="fa-close-alert" onclick="ordersWarningExit()"></i>
+      </div>
+      <div class="col-sm-6">
+        <i class="fa-solid fa-check fa-beat-fade" id="fa-save-alert" onclick="ordersWarningCheck()"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- alert warning-->
+
+
+<!-- alert add order-->
+<div id="add-order" class="custom-alert">
+  <div class="custom-alert-content">
+
+    <div class="row row-calendar">
+      <label for="date-input">вибрати дату:</label>
+      <div class="terminal-input">
+        <input type="date" id="date-input" value="">
+      </div>
+    </div>
+
+    <div class="row row-service">
+      <label for="date-input">вибрати послугу:</label>
+      <div class="terminal-input">
+        <select id="service-order-input"></select>
+      </div>
+    </div>
+
+    <div class="row row-master">
+      <label for="date-input">вибрати майстра:</label>
+      <div class="terminal-input">
+        <select id="master-order-input"></select>
+      </div>
+    </div>
+
+    <div class="row warning-row-confirm">
+      <div class="col-sm-6">
+        <i class="fa-solid fa-xmark fa-beat-fade" id="fa-close-alert" onclick="closeCustomAlert('fa-add-order', 'add-order')"></i>
+      </div>
+      <div class="col-sm-6">
+        <i class="fa-solid fa-check fa-beat-fade" id="fa-save-alert" onclick="ordersWarningCheck()"></i>
+      </div>
+    </div>
+
+</div>
+<!-- alert add order-->
+
+
+
+
+  
+  <script src="index.js"></script>
+  <script src="tempus.js"></script>
+  <script>
+    getAllClients();
+    getAllMasters();
+    getAllServices();
+  </script>
+
+
+
+
+</body>
+
+</html>
